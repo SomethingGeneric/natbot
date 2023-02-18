@@ -32,7 +32,7 @@ You can issue these commands:
 	SCROLL DOWN - scroll down one page
 	CLICK X - click on a given element. You can only click on links, buttons, and inputs!
 	TYPE X "TEXT" - type the specified text into the input with id X
-	TYPESUBMIT X "TEXT" - same as TYPE above, except then it presses ENTER to submit the form
+	TYPESUBMIT X "TEXT" - same as TYPE above, then press ENTER to submit the form
 
 The format of the browser content is highly simplified; all formatting elements are stripped.
 Interactive elements such as links, inputs, buttons are represented like this:
@@ -543,7 +543,7 @@ if (
 	__name__ == "__main__"
 ):
 	_crawler = Crawler()
-	openai.api_key = os.environ.get("OPENAI_API_KEY")
+	openai.api_key = open(".api_key").read().strip()
 
 	def print_help():
 		print(
@@ -557,7 +557,7 @@ if (
 		prompt = prompt.replace("$url", url[:100])
 		prompt = prompt.replace("$previous_command", previous_command)
 		prompt = prompt.replace("$browser_content", browser_content[:4500])
-		response = openai.Completion.create(model="text-davinci-002", prompt=prompt, temperature=0.5, best_of=10, n=3, max_tokens=50)
+		response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0.5, best_of=10, n=3, max_tokens=50)
 		return response.choices[0].text
 
 	def run_cmd(cmd):
@@ -609,9 +609,14 @@ if (
 				print("Suggested command: " + gpt_cmd)
 
 
+			'''
 			command = input()
 			if command == "r" or command == "":
-				run_cmd(gpt_cmd)
+			'''
+
+			run_cmd(gpt_cmd)
+			
+			'''
 			elif command == "g":
 				url = input("URL:")
 				_crawler.go_to_page(url)
@@ -634,6 +639,7 @@ if (
 				objective = input("Objective:")
 			else:
 				print_help()
+			'''
 	except KeyboardInterrupt:
 		print("\n[!] Ctrl+C detected, exiting gracefully.")
 		exit(0)
