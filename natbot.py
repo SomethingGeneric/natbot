@@ -33,6 +33,7 @@ You can issue these commands:
 	CLICK X - click on a given element. You can only click on links, buttons, and inputs!
 	TYPE X "TEXT" - type the specified text into the input with id X
 	TYPESUBMIT X "TEXT" - same as TYPE above, then press ENTER to submit the form
+	STOP X - When you believe you've reached a sufficient page for the user, exit the loop, and show X, the answer to the query, to the user.
 
 The format of the browser content is highly simplified; all formatting elements are stripped.
 Interactive elements such as links, inputs, buttons are represented like this:
@@ -57,6 +58,10 @@ on the first link in the search results. (If your previous command was a TYPESUB
 probably be a CLICK.)
 
 Don't try to interact with elements that you can't see.
+
+Once you believe you have found a page with sufficient information, you should stop.
+Additionally, it's worth stopping if there appear to be sufficient elements for the user to find their own answer.
+Or, if enough elements from the objective are displayed on the page.
 
 Here are some examples:
 
@@ -582,6 +587,13 @@ if (
 			if cmd.startswith("TYPESUBMIT"):
 				text += '\n'
 			_crawler.type(id, text)
+		elif cmd.startswith("STOP"):
+			if " " in cmd:
+				print(f"The suggested answer is: '{cmd.split(' ')[1]}'")
+			else:
+				print("No suggested result, but reccomended to stop.")
+
+			exit(0)
 
 		time.sleep(2)
 
