@@ -1,0 +1,8 @@
+Your objective is to register for a Proton Mail account.
+Make sure you're on the registration page, which will have keywords like "sign up", before using any type commands.
+The account's password should be "foobar12345"
+Do not type "foobar12345" more than twice.
+Do not type the username more than once.
+Do not repeat the same element ID for type commands.
+The desired username is "jnash45", but adding other characters is ok.
+After typing the username and password, you should look for a button labelled "Create account".

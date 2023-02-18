@@ -214,7 +214,7 @@ class Crawler:
 
 	def type(self, id, text):
 		self.click(id)
-		self.page.keyboard.type(text)
+		self.page.keyboard.type(text, delay=100.0)
 
 	def enter(self):
 		self.page.keyboard.press("Enter")
@@ -562,7 +562,7 @@ if (
 		prompt = prompt.replace("$url", url[:100])
 		prompt = prompt.replace("$previous_command", previous_command)
 		prompt = prompt.replace("$browser_content", browser_content[:4500])
-		response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0.5, best_of=10, n=3, max_tokens=50)
+		response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0.5, best_of=10, n=3, max_tokens=70)
 		return response.choices[0].text
 
 	def run_cmd(cmd):
@@ -598,10 +598,16 @@ if (
 		time.sleep(2)
 
 	objective = "Make a reservation for 2 at 7pm at bistro vida in menlo park"
-	print("\nWelcome to natbot! What is your objective?")
-	i = input()
-	if len(i) > 0:
-		objective = i
+	
+	typ = input("Prompt from (f)ile or (i)nput? : ")
+
+	if typ == "f":
+		fn = input("Filename: ")
+		objective = open(fn).read()
+	else:
+		i = input("What is your objective: ")
+		if len(i) > 0:
+			objective = i
 
 	gpt_cmd = ""
 	prev_cmd = ""

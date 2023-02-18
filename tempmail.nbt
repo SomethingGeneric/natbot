@@ -1,0 +1,6 @@
+Use a temporary mail service to send an email to matthew.compton@mymail.champlain.edu
+You will need to click a button labelled "compose"
+The subject for the outbound email should be: "Hello from GPT3 and NatBot!"
+The body of the email should be "Welcome to the future!"
+You will need to click a button "send" after typing out all elements of the email
+You may not issue the same text to a TYPE command more than once.
